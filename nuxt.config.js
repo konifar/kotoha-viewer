@@ -24,7 +24,7 @@ module.exports = {
   head: {
     title: "tt1",
     meta: [
-      { charset: "utf-8" },
+      {charset: "utf-8"},
       {
         name: "viewport",
         content: "width=device-width, initial-scale=1"
@@ -46,12 +46,37 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: "#3B8070" },
+  loading: {color: "#3B8070"},
   /*
   ** Build configuration
   */
   css: ["~/assets/css/main.css"],
-  build: {},
-  modules: ["@nuxtjs/axios", "~/modules/typescript.js"],
+  build: {
+    postcss: {
+      plugins: {
+        'postcss-cssnext': {
+          features: {
+            customProperties: false
+          }
+        }
+      }
+    },
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: "pre",
+          test: /\.(js|vue)$/,
+          loader: "eslint-loader",
+          exclude: /(node_modules)/
+        })
+      }
+    }
+  },
+  modules: [
+    "@nuxtjs/axios",
+    "~/modules/typescript.js",
+    "@nuxtjs/bulma"
+  ],
   axios: {}
 }
