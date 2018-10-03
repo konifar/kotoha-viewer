@@ -4,8 +4,7 @@ const argv = parseArgs(process.argv.slice(2), {
     H: "hostname",
     p: "port"
   },
-  string: ["H"],
-  unknown: parameter => false
+  string: ["H"]
 })
 
 const port =
@@ -20,9 +19,7 @@ const host =
   "localhost"
 module.exports = {
   env: {
-    baseUrl:
-      process.env.BASE_URL ||
-      `http://${host}:${port}`
+    baseUrl: process.env.BASE_URL || `http://${host}:${port}`
   },
   head: {
     title: "tt1",
@@ -30,8 +27,7 @@ module.exports = {
       { charset: "utf-8" },
       {
         name: "viewport",
-        content:
-          "width=device-width, initial-scale=1"
+        content: "width=device-width, initial-scale=1"
       },
       {
         hid: "description",
@@ -56,9 +52,6 @@ module.exports = {
   */
   css: ["~/assets/css/main.css"],
   build: {},
-  modules: [
-    "@nuxtjs/axios",
-    "~/modules/typescript.js"
-  ],
+  modules: ["@nuxtjs/axios", "~/modules/typescript.js"],
   axios: {}
 }
