@@ -5,6 +5,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
     "@nuxtjs/bulma": "^1.2.1",
+    "@nuxtjs/toast": "^3.0.1",
     "nuxt": "^1.4.2",
     "nuxt-property-decorator": "^1.2.0",
     "vuex-class": "^0.3.0"
