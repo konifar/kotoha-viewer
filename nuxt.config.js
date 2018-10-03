@@ -76,7 +76,11 @@ module.exports = {
   modules: [
     "@nuxtjs/axios",
     "~/modules/typescript.js",
-    "@nuxtjs/bulma"
+    "@nuxtjs/bulma",
+    "@nuxtjs/toast"
   ],
-  axios: {}
+  axios: {},
+  toast: {
+    position: "top-center"
+  }
 }
