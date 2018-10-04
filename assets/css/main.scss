@@ -1,0 +1,44 @@
+// 1. Import the initial variables
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+// 2. Set your own initial variables
+// theme
+$pink: #F5558C;
+$green: #367B75;
+$red: #d0011b;
+$sax: #f5f7fa;
+
+// grayscales
+$black: #000;
+$white: #fff;
+$gray1: #666;
+$gray2: #9d9d9d;
+$gray3: #ccc;
+$gray4: #e1e1e1;
+
+// Add a serif family
+$family-serif: "Merriweather", "Georgia", serif;
+
+// 3. Set the derived variables
+$primary: $green;
+$accent: $pink;
+// $warning: $red;
+$danger: $red;
+$background: $sax;
+// Use the new serif family
+$family-primary: $family-serif;
+
+// 4. Setup your Custom Colors
+$tag: #a2e8e0;
+$tag-invert: #a2e8e0;
+
+// 5. Add new color variables to the color map.
+@import "~bulma/sass/utilities/derived-variables.sass";
+$addColors: (
+        "tag":($tag, $tag-invert)
+);
+$colors: map-merge($colors, $addColors);
+
+// 6. Import the rest of Bulma
+@import "~bulma/bulma";

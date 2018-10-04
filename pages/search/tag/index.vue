@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="cards">
-      <Card v-for="person in people" :key="person.id" :person="person"/>
+    <div>
+      <p>hoge</p>
     </div>
   </section>
 </template>
@@ -11,6 +11,7 @@ import { Component, Vue } from "nuxt-property-decorator"
 import { State } from "vuex-class"
 import Card from "~/components/Card.vue"
 import NavBar from "~/components/NavBar.vue"
+import { SearchType } from "../../../models/SearchType"
 
 @Component({
   components: {
@@ -21,13 +22,14 @@ import NavBar from "~/components/NavBar.vue"
 export default class extends Vue {
   @State
   people
+
+  // lifecycle callback
+  mounted(): void {
+    this.$store.dispatch("changeSearchType", SearchType.Tag)
+  }
 }
 </script>
 <style scoped>
-.header {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .cards {
   display: flex;
   flex-wrap: wrap;
