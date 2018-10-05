@@ -1,10 +1,12 @@
 <template>
   <div id="searchContainer" class="container">
-    <div class="control has-icons-left">
-      <input v-model="text" :placeholder="placeholder" class="input" type="text" @change="handleTextChange">
-      <span class="icon is-small is-left">
-        <i class="fa fa-search"/>
-      </span>
+    <div class="field">
+      <p class="control has-icons-left">
+        <input v-model="text" :placeholder="placeholder" class="input" type="text" @change="handleTextChange">
+        <span class="icon is-small is-left">
+          <i class="fa fa-search"/>
+        </span>
+      </p>
     </div>
   </div>
 </template>

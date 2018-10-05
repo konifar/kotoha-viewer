@@ -22,7 +22,7 @@ module.exports = {
     baseUrl: process.env.BASE_URL || `http://${host}:${port}`
   },
   head: {
-    title: "tt1",
+    title: "Kyash Viewer",
     meta: [
       { charset: "utf-8" },
       {
