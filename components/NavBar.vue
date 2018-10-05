@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "nuxt-property-decorator"
-import { SearchType } from "../models/SearchType"
+import { SearchType } from "~/models/SearchType"
 
 @Component({})
 export default class extends Vue {

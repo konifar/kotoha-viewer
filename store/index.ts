@@ -1,12 +1,11 @@
 import { SearchType } from "~/models/SearchType"
-import { plainToClass, Type } from "class-transformer"
-import axios from "axios"
 import { Phrase } from "~/models/Phrase"
+import { plainToClass } from "class-transformer"
+import axios from "axios"
 
 export const state = () => ({
   isSearching: false,
-  phrases: [],
-  people: []
+  phrases: []
 })
 
 export const mutations = {
@@ -15,17 +14,10 @@ export const mutations = {
   },
   setPhrases(state, phrases: Phrase[]) {
     state.phrases = phrases
-  },
-  setPeople(state, people) {
-    state.people = people
   }
 }
 
 export const actions = {
-  async nuxtServerInit({ commit }, { app }) {
-    const people = await app.$axios.$get("./random-data.json")
-    commit("setPeople", people.slice(0, 10))
-  },
   async searchPhrases({ commit }, params) {
     commit("setSearching", true)
 
@@ -39,7 +31,6 @@ export const actions = {
 
     console.log(phrases)
     commit("setPhrases", phrases)
-
     commit("setSearching", false)
   }
 }
