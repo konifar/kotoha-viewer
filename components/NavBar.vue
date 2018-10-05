@@ -1,4 +1,3 @@
-import {SearchType} from "../models/SearchType";
 <template>
   <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
@@ -22,14 +21,13 @@ import {SearchType} from "../models/SearchType";
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator"
-import { SearchType } from "../models/SearchType"
-import { State } from "vuex-class"
+import { Component, Prop, Vue } from "nuxt-property-decorator"
+import { SearchType } from "~/models/SearchType"
 
 @Component({})
 export default class extends Vue {
-  @State
-  searchType: SearchType
+  @Prop()
+  private searchType: SearchType
 
   // computed
   get isPhrase(): boolean {

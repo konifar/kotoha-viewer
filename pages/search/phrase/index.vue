@@ -1,89 +1,43 @@
 <template>
   <div>
+    <NavBar :search-type="searchType"/>
     <section class="section">
-      <div id="searchContainer" class="container">
-        <div class="control has-icons-left">
-          <input v-model="searchText" class="input" type="text" placeholder="名言からさがす" @change="handleTextChange">
-          <span class="icon is-small is-left">
-            <i class="fa fa-search"/>
-          </span>
-        </div>
-      </div>
-
-      <div id="phrasesContainer" class="container">
-        <div v-for="phrase in phrases" :key="phrase.id" class="phrase-row">
-          <p class="is-medium" v-html="highlightText(phrase.text, searchText)"/>
-          <div class="tags">
-            <span v-for="tag in phrase.tag_list" :key="phrase.id + tag" class="tag is-light">{{ tag }}</span>
-          </div>
-        </div>
-      </div>
+      <SearchBar :search-type="searchType" @onTextChanged="onSearchTextChanged"/>
+      <PhraseList :search-type="searchType" :search-text="searchText"/>
     </section>
-    <div v-if="isSearching" class="loading-page">
-      <p>検索中...</p>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator"
-import { State } from "vuex-class"
-import Card from "~/components/Card.vue"
-import NavBar from "~/components/NavBar.vue"
-import { SearchType } from "../../../models/SearchType"
-import _ from "lodash"
+import NavBar from "~/components/NavBar"
+import SearchBar from "~/components/SearchBar"
+import PhraseList from "~/components/PhraseList"
+import { SearchType } from "~/models/SearchType"
 
 @Component({
   components: {
-    Card,
-    NavBar
+    NavBar,
+    SearchBar,
+    PhraseList
   }
 })
 export default class extends Vue {
-  @State
-  isSearching
-  @State
-  phrases
-  searchText
-
-  // lifecycle callback
-  mounted(): void {
-    this.$store.dispatch("changeSearchType", SearchType.Phrase)
-  }
+  // data
+  private searchType = SearchType.Phrase
+  private searchText: string = ""
 
   // methods
-  handleTextChange(): void {
+  onSearchTextChanged(text: string): void {
+    this.searchText = text
     console.log(this.searchText)
     this.$store.dispatch("searchPhrases", {
       text: this.searchText,
-      searchType: SearchType.Phrase
+      searchType: this.searchType
     })
-  }
-
-  highlightText(value: string, keyword: string): string {
-    if (!value) return value
-    return _.replace(
-      value,
-      keyword,
-      `<span style="font-weight: bold; color: #F5558C;">${keyword}</span>`
-    )
   }
 }
 </script>
+
 <style lang="scss" scoped>
-@import "../../../assets/css/components.scss";
-
-#phrasesContainer {
-  margin-top: 20px;
-
-  .phrase-row {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-bottom: $sax 1px solid;
-
-    .tags {
-      margin-top: 4px;
-    }
-  }
-}
 </style>

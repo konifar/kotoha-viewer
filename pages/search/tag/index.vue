@@ -1,37 +1,43 @@
 <template>
-  <section>
-    <div>
-      <p>hoge</p>
-    </div>
-  </section>
+  <div>
+    <NavBar :search-type="searchType"/>
+    <section class="section">
+      <SearchBar :search-type="searchType" @onTextChanged="onSearchTextChanged"/>
+      <PhraseList :search-type="searchType" :search-text="searchText"/>
+    </section>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator"
-import { State } from "vuex-class"
-import Card from "~/components/Card.vue"
-import NavBar from "~/components/NavBar.vue"
-import { SearchType } from "../../../models/SearchType"
+import NavBar from "~/components/NavBar"
+import SearchBar from "~/components/SearchBar"
+import PhraseList from "~/components/PhraseList"
+import { SearchType } from "~/models/SearchType"
 
 @Component({
   components: {
-    Card,
-    NavBar
+    NavBar,
+    SearchBar,
+    PhraseList
   }
 })
 export default class extends Vue {
-  @State
-  people
+  // data
+  private searchType = SearchType.Tag
+  private searchText: string = ""
 
-  // lifecycle callback
-  mounted(): void {
-    this.$store.dispatch("changeSearchType", SearchType.Tag)
+  // methods
+  onSearchTextChanged(text: string): void {
+    this.searchText = text
+    console.log(this.searchText)
+    this.$store.dispatch("searchPhrases", {
+      text: this.searchText,
+      searchType: this.searchType
+    })
   }
 }
 </script>
-<style scoped>
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-}
+
+<style lang="scss" scoped>
 </style>
