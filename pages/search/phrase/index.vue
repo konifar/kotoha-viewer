@@ -2,14 +2,7 @@
   <div>
     <NavBar :search-type="searchType"/>
     <section class="section">
-      <div id="searchContainer" class="container">
-        <div class="control has-icons-left">
-          <input v-model="searchText" class="input" type="text" placeholder="名言からさがす" @change="handleTextChange">
-          <span class="icon is-small is-left">
-            <i class="fa fa-search"/>
-          </span>
-        </div>
-      </div>
+      <SearchBar :search-text="searchText" @onTextChanged="onSearchTextChanged"/>
 
       <div id="phrasesContainer" class="container">
         <div v-for="phrase in phrases" :key="phrase.id" class="phrase-row">
@@ -31,13 +24,15 @@ import { Component, Vue } from "nuxt-property-decorator"
 import { State } from "vuex-class"
 import Card from "~/components/Card.vue"
 import NavBar from "~/components/NavBar.vue"
+import SearchBar from "~/components/SearchBar.vue"
 import { SearchType } from "../../../models/SearchType"
 import _ from "lodash"
 
 @Component({
   components: {
     Card,
-    NavBar
+    NavBar,
+    SearchBar
   }
 })
 export default class extends Vue {
@@ -50,8 +45,9 @@ export default class extends Vue {
   searchText
 
   // methods
-  handleTextChange(): void {
-    console.log(this.searchText)
+  onSearchTextChanged(text: string): void {
+    this.searchText = text
+
     this.$store.dispatch("searchPhrases", {
       text: this.searchText,
       searchType: SearchType.Phrase

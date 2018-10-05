@@ -1,4 +1,3 @@
-import {SearchType} from "../models/SearchType";
 <template>
   <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
