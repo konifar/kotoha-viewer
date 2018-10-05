@@ -1,35 +1,23 @@
 <template>
-  <section>
-    <div class="cards">
-      <Card v-for="person in people" :key="person.id" :person="person"/>
-    </div>
-  </section>
+  <div>
+    <NavBar :search-type="searchType"/>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator"
-import { State } from "vuex-class"
-import Card from "~/components/Card.vue"
 import NavBar from "~/components/NavBar.vue"
 
 @Component({
   components: {
-    Card,
     NavBar
   }
 })
 export default class extends Vue {
-  @State
-  people
+  fetch({ params, redirect }) {
+    redirect(301, "/search/phrase")
+  }
 }
 </script>
-<style scoped>
-.header {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-}
+<style lang="scss" scoped>
 </style>

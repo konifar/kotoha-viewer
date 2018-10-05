@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBar :search-type="searchType"/>
     <section class="section">
       <div id="searchContainer" class="container">
         <div class="control has-icons-left">
@@ -40,16 +41,13 @@ import _ from "lodash"
   }
 })
 export default class extends Vue {
+  private searchType = SearchType.Phrase
+
   @State
   isSearching
   @State
   phrases
   searchText
-
-  // lifecycle callback
-  mounted(): void {
-    this.$store.dispatch("changeSearchType", SearchType.Phrase)
-  }
 
   // methods
   handleTextChange(): void {

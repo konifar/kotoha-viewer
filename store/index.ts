@@ -4,16 +4,12 @@ import axios from "axios"
 import { Phrase } from "~/models/Phrase"
 
 export const state = () => ({
-  searchType: SearchType,
   isSearching: false,
   phrases: [],
   people: []
 })
 
 export const mutations = {
-  setSearchType(state, searchType: SearchType) {
-    state.searchType = searchType
-  },
   setSearching(state, isSearching: boolean) {
     state.isSearching = isSearching
   },
@@ -29,9 +25,6 @@ export const actions = {
   async nuxtServerInit({ commit }, { app }) {
     const people = await app.$axios.$get("./random-data.json")
     commit("setPeople", people.slice(0, 10))
-  },
-  async changeSearchType({ commit }, searchType: SearchType) {
-    commit("setSearchType", searchType)
   },
   async searchPhrases({ commit }, params) {
     commit("setSearching", true)
