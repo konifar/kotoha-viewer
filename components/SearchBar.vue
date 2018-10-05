@@ -26,7 +26,6 @@ export default class extends Vue {
 
   // methods
   handleTextChange(): void {
-    console.log(this.text)
     this.onTextChanged(this.text)
   }
 }

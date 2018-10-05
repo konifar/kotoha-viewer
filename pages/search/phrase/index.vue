@@ -5,11 +5,8 @@
       <SearchBar :search-text="searchText" @onTextChanged="onSearchTextChanged"/>
 
       <div id="phrasesContainer" class="container">
-        <div v-for="phrase in phrases" :key="phrase.id" class="phrase-row">
-          <p class="is-medium" v-html="highlightText(phrase.text, searchText)"/>
-          <div class="tags">
-            <span v-for="tag in phrase.tag_list" :key="phrase.id + tag" class="tag is-light">{{ tag }}</span>
-          </div>
+        <div v-for="phrase in phrases" :key="phrase.id">
+          <PhraseItem :search-text="searchText" :phrase="phrase"/>
         </div>
       </div>
     </section>
@@ -25,42 +22,37 @@ import { State } from "vuex-class"
 import Card from "~/components/Card.vue"
 import NavBar from "~/components/NavBar.vue"
 import SearchBar from "~/components/SearchBar.vue"
-import { SearchType } from "../../../models/SearchType"
-import _ from "lodash"
+import PhraseItem from "~/components/PhraseItem.vue"
+import { SearchType } from "~/models/SearchType"
+import { Phrase } from "../../../models/Phrase"
 
 @Component({
   components: {
     Card,
     NavBar,
-    SearchBar
+    SearchBar,
+    PhraseItem
   }
 })
 export default class extends Vue {
   private searchType = SearchType.Phrase
 
   @State
-  isSearching
+  isSearching: boolean
   @State
-  phrases
-  searchText
+  phrases: Phrase[]
+
+  searchText: string
 
   // methods
   onSearchTextChanged(text: string): void {
+    console.log(this.searchText)
     this.searchText = text
 
     this.$store.dispatch("searchPhrases", {
       text: this.searchText,
-      searchType: SearchType.Phrase
+      searchType: this.searchType
     })
-  }
-
-  highlightText(value: string, keyword: string): string {
-    if (!value) return value
-    return _.replace(
-      value,
-      keyword,
-      `<span style="font-weight: bold; color: #F5558C;">${keyword}</span>`
-    )
   }
 }
 </script>
@@ -69,15 +61,5 @@ export default class extends Vue {
 
 #phrasesContainer {
   margin-top: 20px;
-
-  .phrase-row {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-bottom: $sax 1px solid;
-
-    .tags {
-      margin-top: 4px;
-    }
-  }
 }
 </style>
