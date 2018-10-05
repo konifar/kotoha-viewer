@@ -10,10 +10,10 @@
       <a :class="{'is-active': isTag}" class="navbar-item" href="/search/tag">
         タグ
       </a>
-      <div class="navbar-item">
-        <a class="button is-primary" @click="onAddClick">追加</a>
-      </div>
-      <a href="https://github.com/konifar/kotoha-viewer" class="navbar-item">
+      <!--<div class="navbar-item">-->
+      <!--<a class="button is-primary" @click="onAddClick">追加</a>-->
+      <!--</div>-->
+      <a href="https://github.com/konifar/kotoha-viewer" class="navbar-item" target="_blank">
         <i class="fa fa-lg fa-github-alt"/>
       </a>
     </div>
